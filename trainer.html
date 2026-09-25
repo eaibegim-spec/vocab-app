@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <style>
+      body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; background-color: #f0f5f0; padding: 20px; text-align: center; }
+        a { display: inline-block; }
+        .karte {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 50px 20px;
+            margin: 20px 0;
+            font-size: 28px;
+            min-height: 60px;
+            cursor: pointer;
+        }
+        .karte .genus { color: #888; font-size: 18px; }
+        .karte .uebersetzung { color: #2c7be5; margin-top: 15px; }
+        button { padding: 10px 20px; margin: 5px; font-size: 16px; cursor: pointer; }
+        #fortschritt { color: #666; }
+    </style>
+</head>  
+<body>
+    <nav>
+        <a href="index.html">Wörterbuch</a>
+        <a href="trainer.html" class="active">Trainer</a>
+    </nav>
+    <h1>Trainer</h1>
+    <p id="fortschritt"></p>
+
+    <div class="karte" id="karte" onclick="uebersetzungZeigen()">
+        <div class="genus" id="karte-genus"></div>
+        <div id="karte-wort">Lädt...</div>
+        <div class="uebersetzung" id="karte-uebersetzung"></div>
+    </div>
+
+    <button id="naechste-btn" onclick="naechsteKarte()" disabled>Nächste Karte</button>
+    <button onclick="neueRunde()">Neue Runde (3 Wörter)</button>
+    <script src="trainer.js"></script>
+</body>
+</html>
+

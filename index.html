@@ -1,34 +1,59 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- für eine moderne HTML Version -->
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>VocabularyApp</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        form { margin-top: 20px; display: flex; gap: 8px; }
-        input, select { padding: 6px; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>VocabularyApp</h1>
+    <nav>
+        <a href="index.html" class="active">Wörterbuch</a>
+        <a href="trainer.html">Trainer</a>
+    </nav>
+
+    <div class="banner">
+        <h2>Neuer Tag, neues Wort!</h2>
+        <p>Du machst es prima!</p>
+    </div>
 
     <form id="vokabel-form">
+        <label for="wort">Wort</label>
         <input type="text" id="wort" placeholder="Wort" required>
+
+        <label for="genus">Genus</label>
         <select id="genus">
             <option value="der">der</option>
             <option value="die">die</option>
             <option value="das">das</option>
-            <option value="-"></option>
+            <option value="-">-</option>
         </select>
-        <input type="text" id="uebersetzung" placeholder="Übersetzung" required>
-        <button type="submit">Hinzufügen</button>
+
+        <label for="uebersetzung_ru">Übersetzung_ru</label>
+        <input type="text" id="uebersetzung_ru" list="ru-vorschlaege" placeholder="Übersetzung_ru">
+        <datalist id="ru-vorschlaege">
+            <option value="Привет">
+            <option value="Спасибо">
+            <option value="Пожалуйста">
+            <option value="До свидания">
+        </datalist>
+
+        <label for="uebersetzung_en">Übersetzung_en</label>
+        <input type="text" id="uebersetzung_en" list="en-vorschlaege" placeholder="Übersetzung_en">
+        <datalist id="en-vorschlaege">
+            <option value="Hello">
+            <option value="Thank you">
+            <option value="Please">
+            <option value="Goodbye">
+        </datalist>
+
+        <button type="submit" id="submit-btn">Hinzufügen</button>
     </form>
+
 
     <table>
         <thead>
-           <tr><th>Wort</th><th>Genus</th><th>Übersetzung</th><th></th></tr>
+           <tr><th>Wort</th><th>Genus</th><th>Übersetzung_ru</th><th>Übersetzung_en</th><th></th></tr>
         </thead>
         <tbody id="vokabel-liste"></tbody>
     </table>

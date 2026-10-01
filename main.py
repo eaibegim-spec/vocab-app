@@ -26,7 +26,7 @@ def get_connection():
 def alle_vokabeln():
     verbindung = get_connection()
     cursor = verbindung.cursor()
-    cursor.execute("SELECT * FROM vokabeln")
+    cursor.execute("SELECT * FROM vokabeln ORDER BY id DESC")
     ergebnis = cursor.fetchall()
     cursor.close()
     verbindung.close()

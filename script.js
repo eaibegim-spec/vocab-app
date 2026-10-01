@@ -1,9 +1,18 @@
 const API_URL = "http://localhost:8000/vokabeln";
 
+// Felder einmal oben holen
+const ruFeld = document.getElementById("uebersetzung_ru");
+const enFeld = document.getElementById("uebersetzung_en");
+const form = document.getElementById("vokabel-form");
+
+// Fehlermeldung zurücksetzen, sobald der Nutzer tippt
+[ruFeld, enFeld].forEach(feld =>
+    feld.addEventListener("input", () => ruFeld.setCustomValidity(""))
+);
+
 async function vokabelnLaden() {
     const antwort = await fetch(API_URL);
     const vokabeln = await antwort.json();
-    vokabelnCache = vokabeln; 
 
     const liste = document.getElementById("vokabel-liste");
     liste.innerHTML = "";
@@ -11,13 +20,21 @@ async function vokabelnLaden() {
     vokabeln.forEach(vokabel => {
         const [id, wort, genus, uebersetzungRu, uebersetzungEn] = vokabel;
         const zeile = document.createElement("tr");
-        zeile.innerHTML = `
-            <td>${wort}</td>
-            <td>${genus}</td>
-            <td>${uebersetzungRu ?? "-"}</td>
-            <td>${uebersetzungEn ?? "-"}</td>
-            <td><button onclick="vokabelLöschen(${id})">Löschen</button></td>
-        `;
+
+        // textContent statt innerHTML: verhindert, dass Eingaben als HTML interpretiert werden
+        [wort, genus, uebersetzungRu ?? "-", uebersetzungEn ?? "-"].forEach(text => {
+            const zelle = document.createElement("td");
+            zelle.textContent = text;
+            zeile.appendChild(zelle);
+        });
+
+        const aktionen = document.createElement("td");
+        const loeschenButton = document.createElement("button");
+        loeschenButton.textContent = "Löschen";
+        loeschenButton.addEventListener("click", () => vokabelLoeschen(id));
+        aktionen.appendChild(loeschenButton);
+        zeile.appendChild(aktionen);
+
         liste.appendChild(zeile);
     });
 }
@@ -27,22 +44,9 @@ async function vokabelLoeschen(id) {
     vokabelnLaden();
 }
 
-function vokabelBearbeiten(id) {
-    const eintrag = vokabelnCache.find(v => v[0] === id);
-    if (!eintrag) return;
-    const [, wort, genus, ru, en] = eintrag;
-
-    document.getElementById("wort").value = wort;
-    document.getElementById("genus").value = genus;
-    document.getElementById("uebersetzung_ru").value = ru === "-" ? "" : ru;
-    document.getElementById("uebersetzung_en").value = en === "-" ? "" : en;
-}
-
-document.getElementById("vokabel-form").addEventListener("submit", async (event) => {
+form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const ruFeld = document.getElementById("uebersetzung_ru");
-    const enFeld = document.getElementById("uebersetzung_en");
     const ru = ruFeld.value.trim();
     const en = enFeld.value.trim();
 
@@ -52,14 +56,12 @@ document.getElementById("vokabel-form").addEventListener("submit", async (event)
         return;
     }
     if (ru && en) {
-        ruFeld.setCustomValidity("Bitte nur eine Übersetzung eingeben, nicht beide.");
+        ruFeld.setCustomValidity("Bitte nur eine Übersetzung eingeben.");
         ruFeld.reportValidity();
         return;
     }
-
     ruFeld.setCustomValidity("");
 
-    
     const neueVokabel = {
         wort: document.getElementById("wort").value,
         genus: document.getElementById("genus").value,
@@ -67,16 +69,13 @@ document.getElementById("vokabel-form").addEventListener("submit", async (event)
         uebersetzung_en: en || "-"
     };
 
-    const url = editId ? `${API_URL}/${editId}` : API_URL;
-    const methode = editId ? "PUT" : "POST";
-
     await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(neueVokabel)
     });
 
-    document.getElementById("vokabel-form").reset();
+    form.reset();
     vokabelnLaden();
 });
 

@@ -69,6 +69,7 @@ form.addEventListener("submit", async (event) => {
         uebersetzung_en: en || "-"
     };
 
+    // Der Code schickt die neue Vokabel als JSON per Post an den FASTAPI-Backend
     await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -76,7 +76,7 @@ def vokabel_loeschen(vokabel_id: int):
     return {"gelöscht": vokabel_id}
 
 @app.get("/trainer")
-def trainer(nazahl: int = 3):
+def trainer(anzahl: int = 3):
     verbindung = get_connection()
     cursor = verbindung.cursor()
     cursor.execute("SELECT * FROM vokabeln")
@@ -84,7 +84,7 @@ def trainer(nazahl: int = 3):
     cursor.close()
     verbindung.close()
 
-    anzahl = min(nazahl, len(alle_vokabeln))
+    anzahl = min(anzahl, len(alle_vokabeln))
     return random.sample(alle_vokabeln, anzahl)
 
     

@@ -8,35 +8,50 @@ input:focus, select:focus, button:focus { outline: 3px solid #2c7be5; outline-of
 
 nav {
     display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 28px;
 }
 
 nav a {
     text-decoration: none;
     color: #444;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 12px 16px;
+    border-radius: 28px;
     font-weight: 600;
     transition: background-color 0.2s, color 0.2s;
 }
 
 nav a:hover {
-    background-color: #e4e1fb;
+    background: linear-gradient(135deg, #e4dcff, #ffd9ec);
+    box-shadow: 0 4px 12px rgba(140, 110, 230, .25);
+    transform: translateY(-1px);
 }
 
 nav a.active {
-    background-color: #8777ff;
+    background-color: linear-gradient(135deg, #5b3fd9, #8f74f5);
+    color: #444;
+    box-shadow: 0 4px 12px -4px rgba(91, 63, 217, 0.6) ;
+}
+
+nav a.active:hover {
+    background: linear-gradient(135deg, #e4dcff, #ffd9ec);
+    box-shadow: 0 4px 12px rgba(140, 110, 230, .25);
+    transform: translateY(-1px);
+}
+
+nav a:focus-visible {
+    outline: 3px solid #2c7be5;
+    outline-offset: 2px;
 }
 
 .banner {
-    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-    color: white;
-    padding: 24px;
-    border-radius: 12px;
-    margin-bottom: 24px;
-    text-align: center;
-    width: 100%;
+    background: 
+    radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.25), transparent 45%),
+    linear-gradient(135deg, #5b3fd9 0%, #7c5cf0 50%, #a78bfa 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 28px 24px;
+    box-shadow: 0 10px 30px -10px rgba(91, 63, 217, 0.55);
 }
 .banner h2 { margin: 0 0 4px 0; }
 .banner p { margin: 0; opacity: 0.9; }

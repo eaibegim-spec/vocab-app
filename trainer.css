@@ -1,0 +1,31 @@
+body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; background: #f0f5f0; padding: 20px; text-align: center; }
+nav a { display: inline-block; }
+button { padding: 10px 20px; margin: 5px; font-size: 16px; cursor: pointer; }
+button:disabled { opacity: .5; cursor: default; }
+.steuerung { margin: 15px 0; }
+#fortschritt { color: #666; min-height: 1.2em; }
+#ergebnis { font-size: 20px; font-weight: bold; color: #2a8a3e; min-height: 1.5em; }
+
+/* Modus-Tabs */
+#modus-leiste { margin: 15px 0; }
+.tab { background: #fff; border: 1px solid #ccc; border-radius: 20px; }
+.tab.aktiv { background: #2c7be5; color: #fff; border-color: #2c7be5; }
+
+/* Gemeinsam: Genus-Anzeige */
+.genus { color: #888; font-size: 18px; }
+
+/* Flip-Karten */
+.flip { perspective: 1000px; margin: 20px 0; cursor: pointer; }
+.flip-innen { position: relative; height: 180px; transition: transform .5s; transform-style: preserve-3d; }
+.flip.umgedreht .flip-innen { transform: rotateY(180deg); }
+.flip-seite { position: absolute; inset: 0; backface-visibility: hidden; background: #fff; border: 1px solid #ccc; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 28px; }
+.flip-seite.hinten { transform: rotateY(180deg); color: #2c7be5; }
+
+/* Zuordnung */
+.zuordnung { display: flex; gap: 20px; margin: 20px 0; }
+.spalte { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.paar { background: #fff; border: 1px solid #ccc; border-radius: 10px; padding: 14px; font-size: 20px; margin: 0; }
+.paar.gewaehlt { border-color: #2c7be5; background: #e8f0fe; }
+.paar.richtig { background: #d4f4dc; border-color: #2a8a3e; cursor: default; }
+.paar.falsch { background: #fde0e0; border-color: #d33; animation: wackeln .3s; }
+@keyframes wackeln { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
